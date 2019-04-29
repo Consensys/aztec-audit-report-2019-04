@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ACE/ACE.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">ACE/</a> ACE.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.43% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>192/210</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.87% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>116/121</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">94×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">492×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">93×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">83×</span>
+<span class="cline-any cline-yes">82×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">154×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">154×</span>
+<span class="cline-any cline-yes">152×</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-yes">150×</span>
+<span class="cline-any cline-yes">148×</span>
+<span class="cline-any cline-yes">146×</span>
+<span class="cline-any cline-yes">146×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">91×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;0.6.0;
+&nbsp;
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+&nbsp;
+import "./NoteRegistry.sol";
+&nbsp;
+import "../interfaces/IAZTEC.sol";
+&nbsp;
+import "../libs/NoteUtils.sol";
+import "../libs/ProofUtils.sol";
+import "../libs/SafeMath8.sol";
+&nbsp;
+/**
+ * @title The AZTEC Cryptography Engine
+ * @author AZTEC
+ * @dev ACE validates the AZTEC protocol's family of zero-knowledge proofs, which enables
+ *      digital asset builders to construct fungible confidential digital assets according to the AZTEC token standard.
+ * Copyright Spilbury Holdings Ltd 2019. All rights reserved.
+ **/
+contract ACE is IAZTEC, Ownable, NoteRegistry {
+    using NoteUtils for bytes;
+    using ProofUtils for uint24;
+    using SafeMath for uint256;
+    using SafeMath8 for uint8;
+&nbsp;
+    // keccak256 hash of "JoinSplitSignature(uint24 proof,bytes32 noteHash,uint256 challenge,address sender)"
+    bytes32 constant internal JOIN_SPLIT_SIGNATURE_TYPE_HASH =
+        0xf671f176821d4c6f81e66f9704cdf2c5c12d34bd23561179229c9fe7a9e85462;
+&nbsp;
+    event SetCommonReferenceString(bytes32[6] _commonReferenceString);
+    event SetProof(
+        uint8 indexed epoch, 
+        uint8 indexed category, 
+        uint8 indexed id, 
+        address validatorAddress
+    );
+    event IncrementLatestEpoch(uint8 newLatestEpoch);
+&nbsp;
+    // The commonReferenceString contains one G1 group element and one G2 group element,
+    // that are created via the AZTEC protocol's trusted setup. All zero-knowledge proofs supported
+    // by ACE use the same common reference string.
+    bytes32[6] private commonReferenceString;
+&nbsp;
+    // `validators`contains the addresses of the contracts that validate specific proof types
+    address[0x100][0x100][0x10000] public validators;
+&nbsp;
+    // a list of invalidated proof ids, used to blacklist proofs in the case of a vulnerability being discovered
+    bool[0x100][0x100][0x10000] public disabledValidators;
+    
+    // latest proof epoch accepted by this contract
+    uint8 public latestEpoch = 1;
+&nbsp;
+    // keep track of validated balanced proofs
+    mapping(bytes32 =&gt; bool) public validatedProofs;
+    
+    /**
+    * @dev contract constructor. Sets the owner of ACE
+    **/
+    constructor() public Ownable() {}
+&nbsp;
+    /**
+    * @dev Mint AZTEC notes
+    *      
+    * @param _proof the AZTEC proof object
+    * @param _proofData the mint proof construction data
+    * @param _proofSender the Ethereum address of the original transaction sender. It is explicitly assumed that
+    *        an asset using ACE supplies this field correctly - if they don't their asset is vulnerable to front-running
+    * Unnamed param is the AZTEC zero-knowledge proof data
+    * @return two `bytes` objects. The first contains the new confidentialTotalSupply note and the second contains the
+    * notes that were created. Returned so that a zkAsset can emit the appropriate events
+    */
+    function mint(
+        uint24 _proof,
+        bytes calldata _proofData,
+        address _proofSender
+    ) external returns (bytes memory) {
+        
+        Registry storage registry = registries[msg.sender];
+        require(registry.flags.active == true, "note registry does not exist for the given address");
+        require(registry.flags.canAdjustSupply == true, "this asset is not mintable");
+        
+        // Check that it's a mintable proof
+        (, uint8 category, ) = _proof.getProofComponents();
+&nbsp;
+        require(category == uint8(ProofCategory.MINT), "this is not a mint proof");
+&nbsp;
+        bytes memory _proofOutputs = this.validateProof(_proof, _proofSender, _proofData);
+        require(_proofOutputs.getLength() &gt; 0, "call to validateProof failed");
+&nbsp;
+        // Dealing with notes representing totals
+        (bytes memory oldTotal,  // inputNotesTotal
+        bytes memory newTotal, // outputNotesTotal
+        ,
+        ) = _proofOutputs.get(0).extractProofOutput();
+&nbsp;
+        // Check the previous confidentialTotalSupply, and then assign the new one
+        (, bytes32 oldTotalNoteHash, ) = oldTotal.get(0).extractNote();        
+&nbsp;
+        require(oldTotalNoteHash == registry.confidentialTotalMinted, "provided total minted note does not match");
+        (, bytes32 newTotalNoteHash, ) = newTotal.get(0).extractNote();
+        registry.confidentialTotalMinted = newTotalNoteHash;
+&nbsp;
+        // Dealing with minted notes
+        (,
+        bytes memory mintedNotes, // output notes
+        ,
+        ) = _proofOutputs.get(1).extractProofOutput();
+&nbsp;
+        updateOutputNotes(mintedNotes);
+        return(_proofOutputs);
+    }
+&nbsp;
+    /**
+    * @dev Burn AZTEC notes
+    *      
+    * @param _proof the AZTEC proof object
+    * @param _proofData the burn proof construction data
+    * @param _proofSender the Ethereum address of the original transaction sender. It is explicitly assumed that
+    *        an asset using ACE supplies this field correctly - if they don't their asset is vulnerable to front-running
+    * Unnamed param is the AZTEC zero-knowledge proof data
+    * @return two `bytes` objects. The first contains the new confidentialTotalSupply note and the second contains the
+    * notes that were created. Returned so that a zkAsset can emit the appropriate events
+    */
+    function burn(
+        uint24 _proof,
+        bytes calldata _proofData,
+        address _proofSender
+    ) external returns (bytes memory) {
+        
+        Registry storage registry = registries[msg.sender];
+        require(registry.flags.active == true, "note registry does not exist for the given address");
+        require(registry.flags.canAdjustSupply == true, "this asset is not burnable");
+        
+        // Check that it's a burnable proof
+        (, uint8 category, ) = _proof.getProofComponents();
+&nbsp;
+        require(category == uint8(ProofCategory.BURN), "this is not a burn proof");
+&nbsp;
+        bytes memory _proofOutputs = this.validateProof(_proof, _proofSender, _proofData);
+        
+        // Dealing with notes representing totals
+        (bytes memory oldTotal, // input notes
+        bytes memory newTotal, // output notes
+        ,
+        ) = _proofOutputs.get(0).extractProofOutput();
+    
+        (, bytes32 oldTotalNoteHash, ) = oldTotal.get(0).extractNote();        
+        require(oldTotalNoteHash == registry.confidentialTotalBurned, "provided total burned note does not match");
+        (, bytes32 newTotalNoteHash, ) = newTotal.get(0).extractNote();
+        registry.confidentialTotalBurned = newTotalNoteHash;
+&nbsp;
+        // Dealing with burned notes
+        (,
+        bytes memory burnedNotes,
+        ,) = _proofOutputs.get(1).extractProofOutput();
+&nbsp;
+        // Although they are outputNotes, they are due to be destroyed - need removing from the note registry
+        updateInputNotes(burnedNotes);
+<span class="cstat-no" title="statement not covered" >        return(_proofOutputs);</span>
+    }
+&nbsp;
+    /**
+    * @dev Validate an AZTEC zero-knowledge proof. ACE will issue a validation transaction to the smart contract
+    *      linked to `_proof`. The validator smart contract will have the following interface:
+    *      
+    *      function validate(
+    *          bytes _proofData, 
+    *          address _sender, 
+    *          bytes32[6] _commonReferenceString
+    *      ) public returns (bytes)
+    *
+    * @param _proof the AZTEC proof object
+    * @param _sender the Ethereum address of the original transaction sender. It is explicitly assumed that
+    *        an asset using ACE supplies this field correctly - if they don't their asset is vulnerable to front-running
+    * Unnamed param is the AZTEC zero-knowledge proof data
+    * @return a `bytes proofOutputs` variable formatted according to the Cryptography Engine standard
+    */
+    function validateProof(uint24 _proof, address _sender, bytes calldata) external returns (bytes memory) {
+        require(_proof != 0, "expected the proof to be valid");
+        // validate that the provided _proof object maps to a corresponding validator and also that
+        // the validator is not disabled
+        address validatorAddress = getValidatorAddress(_proof);
+        bytes memory proofOutputs;
+        assembly {
+            // the first evm word of the 3rd function param is the abi encoded location of proof data
+            let proofDataLocation := add(0x04, calldataload(0x44))
+&nbsp;
+            // manually construct validator calldata map
+            let memPtr := mload(0x40)
+            mstore(add(memPtr, 0x04), 0x100) // location in calldata of the start of `bytes _proofData` (0x100)
+            mstore(add(memPtr, 0x24), _sender)
+            mstore(add(memPtr, 0x44), sload(commonReferenceString_slot))
+            mstore(add(memPtr, 0x64), sload(add(0x01, commonReferenceString_slot)))
+            mstore(add(memPtr, 0x84), sload(add(0x02, commonReferenceString_slot)))
+            mstore(add(memPtr, 0xa4), sload(add(0x03, commonReferenceString_slot)))
+            mstore(add(memPtr, 0xc4), sload(add(0x04, commonReferenceString_slot)))
+            mstore(add(memPtr, 0xe4), sload(add(0x05, commonReferenceString_slot)))
+&nbsp;
+            // 0x104 because there's an address, the length 6 and the static array items
+            let destination := add(memPtr, 0x104)
+            // note that we offset by 0x20 because the first word is the length of the dynamic bytes array
+            let proofDataSize := add(calldataload(proofDataLocation), 0x20)
+            // copy the calldata into memory so we can call the validator contract
+            calldatacopy(destination, proofDataLocation, proofDataSize)
+            // call our validator smart contract, and validate the call succeeded
+            let callSize := add(proofDataSize, 0x104)
+            switch staticcall(gas, validatorAddress, memPtr, callSize, 0x00, 0x00)
+            case 0 {
+                mstore(0x00, 400) revert(0x00, 0x20) // call failed because proof is invalid
+            }
+&nbsp;
+            // copy returndata to memory
+            returndatacopy(memPtr, 0x00, returndatasize)
+            // store the proof outputs in memory
+            mstore(0x40, add(<span class="cstat-no" title="statement not covered" >memPtr,</span> returndatasize))
+            // the first evm word in the memory pointer is the abi encoded location of the actual returned data
+            proofOutputs := add(<span class="cstat-no" title="statement not covered" >memPtr,</span> mload(<span class="cstat-no" title="statement not covered" >memPtr)</span>)
+        }
+&nbsp;
+        // if this proof satisfies a balancing relationship, we need to record the proof hash
+        if (((_proof &gt;&gt; 8) &amp; 0xff) == uint8(ProofCategory.BALANCED)) {
+            uint256 length = proofOutputs.getLength();
+            for (uint256 i = 0; i &lt; length; i += 1) {
+                bytes32 proofHash = keccak256(proofOutputs.get(i));
+                bytes32 validatedProofHash = keccak256(abi.encode(proofHash, _proof, msg.sender));
+                validatedProofs[validatedProofHash] = true;
+            }
+        }
+        return proofOutputs;
+    }
+&nbsp;
+    /**
+    * @dev Clear storage variables set when validating zero-knowledge proofs.
+    *      The only address that can clear data from `validatedProofs` is the address that created the proof.
+    *      Function is designed to utilize [EIP-1283](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1283.md)
+    *      to reduce gas costs. It is highly likely that any storage variables set by `validateProof`
+    *      are only required for the duration of a single transaction.
+    *      E.g. a decentralized exchange validating a swap proof and sending transfer instructions to
+    *      two confidential assets.
+    *      This method allows the calling smart contract to recover most of the gas spent by setting `validatedProofs`
+    * @param _proof the AZTEC proof object
+    * @param _proofHashes dynamic array of proof hashes
+    */
+    function clearProofByHashes(uint24 _proof, bytes32[] calldata _proofHashes) external {
+        uint256 length = _proofHashes.length;
+        for (<span class="cstat-no" title="statement not covered" >uint256 i = 0; </span>i &lt; length; i += 1) {
+            bytes32 proofHash = _proofHashes[i];
+            require(proofHash != bytes32(0x0), "expected no empty proof hash");
+            bytes32 validatedProofHash = keccak256(abi.encode(proofHash, _proof, msg.sender));
+            require(validatedProofs[validatedProofHash] == true, "can only clear previously validated proofs");
+            validatedProofs[validatedProofHash] = false;
+        }
+    }
+&nbsp;
+    /**
+    * @dev Set the common reference string.
+    *      If the trusted setup is re-run, we will need to be able to change the crs
+    * @param _commonReferenceString the new commonReferenceString
+    */
+    function setCommonReferenceString(bytes32[6] memory _commonReferenceString) public {
+        require(isOwner(), "only the owner can set the common reference string");
+        commonReferenceString = _commonReferenceString;
+        emit SetCommonReferenceString(_commonReferenceString);
+    }
+&nbsp;
+    /**
+    * @dev Forever invalidate the given proof.
+    * @param _proof the AZTEC proof object
+    */
+    function invalidateProof(uint24 _proof) public {
+        require(isOwner(), "only the owner can invalidate a proof");
+        (uint8 epoch, uint8 category, uint8 id) = _proof.getProofComponents();
+        require(validators[epoch][category][id] != address(0x0), "can only invalidate proofs that exist");
+        disabledValidators[epoch][category][id] = true;
+    }
+&nbsp;
+    /**
+    * @dev Validate a previously validated AZTEC proof via its hash
+    *      This enables confidential assets to receive transfer instructions from a dApp that
+    *      has already validated an AZTEC proof that satisfies a balancing relationship.
+    * @param _proof the AZTEC proof object
+    * @param _proofHash the hash of the `proofOutput` received by the asset
+    * @param _sender the Ethereum address of the contract issuing the transfer instruction
+    * @return a boolean that signifies whether the corresponding AZTEC proof has been validated
+    */
+    function validateProofByHash(
+        uint24 _proof,
+        bytes32 _proofHash,
+        address _sender
+    ) public view returns (bool) {
+        // We need create a unique encoding of _proof, _proofHash and _sender,
+        // and use as a key to access validatedProofs
+        // We do this by computing bytes32 validatedProofHash = keccak256(ABI.encode(_proof, _proofHash, _sender))
+        // We also need to access disabledValidators[_proof.epoch][_proof.category][_proof.id]
+        // This bit is implemented in Yul, as 3-dimensional array access chews through
+        // a lot of gas in Solidity, as does ABI.encode
+<span class="cstat-no" title="statement not covered" >        bytes32 validatedProofHash;</span>
+<span class="cstat-no" title="statement not covered" >        bool isValidatorDisabled;</span>
+        assembly {
+            // inside _proof, we have 3 packed variables : [epoch, category, id]
+            // each is a uint8.
+&nbsp;
+            // We need to compute the storage key for `disabledValidators[epoch][category][id]`
+            // Type of array is bool[0x100][0x100][0x100]
+            // Solidity will only squish 32 boolean variables into a single storage slot, not 256
+            // =&gt; result of disabledValidators[epoch][category] is stored in 0x08 storage slots
+            // =&gt; result of disabledValidators[epoch] is stored in 0x08 * 0x100 = 0x800 storage slots
+&nbsp;
+            // To compute the storage slot  disabledValidators[epoch][category][id], we do the following:
+            // 1. get the disabledValidators slot 
+            // 2. add (epoch * 0x800) to the slot (or epoch &lt;&lt; 11)
+            // 3. add (category * 0x08) to the slot (or category &lt;&lt; 3)
+            // 4. add (id / 0x20) to the slot (or id &gt;&gt; 5)
+&nbsp;
+            // Once the storage slot has been loaded, we need to isolate the byte that contains our boolean
+            // This will be equal to id % 0x20, which is also id &amp; 0x1f
+&nbsp;
+            // Putting this all together. The storage slot offset from '_proof' is...
+            // epoch: ((_proof &amp; 0xff0000) &gt;&gt; 16) &lt;&lt; 11 = ((_proof &amp; 0xff0000) &gt;&gt; 5)
+            // category: ((_proof &amp; 0xff00) &gt;&gt; 8) &lt;&lt; 3 = ((_proof &amp; 0xff00) &gt;&gt; 5)
+            // id: (_proof &amp; 0xff) &gt;&gt; 5
+            // i.e. the storage slot offset = _proof &gt;&gt; 5
+&nbsp;
+            // the byte index of the storage word that we require, is equal to (_proof &amp; 0x1f)
+            // to convert to a bit index, we multiply by 8
+            // i.e. bit index = shl(3, and(_proof &amp; 0x1f))
+            // =&gt; result = shr(shl(3, and_proof &amp; 0x1f), value)
+            isValidatorDisabled := 
+                shr(
+                    shl(
+                        0x03,
+                        and(<span class="cstat-no" title="statement not covered" >_proof,</span> 0x1f)
+                    ),
+                    sload(add(shr(5, <span class="cstat-no" title="statement not covered" >_proof)</span>, disabledValidators_slot))
+                )
+&nbsp;
+            // Next, compute validatedProofHash = keccak256(abi.encode(_proofHash, _proof, _sender))
+            // cache free memory pointer - we will overwrite it when computing hash (cheaper than using free memory)
+            let memPtr := mload(0x40)
+            mstore(0x00, <span class="cstat-no" title="statement not covered" >_proofHash)</span>
+            mstore(0x20, <span class="cstat-no" title="statement not covered" >_proof)</span>
+            mstore(0x40, <span class="cstat-no" title="statement not covered" >_sender)</span>
+            validatedProofHash := keccak256(0x00, 0x60)
+            mstore(0x40, <span class="cstat-no" title="statement not covered" >memPtr)</span> // restore the free memory pointer
+        }
+        require(isValidatorDisabled == false, "proof id has been invalidated");
+        return validatedProofs[validatedProofHash];
+    }
+&nbsp;
+    /**
+    * @dev Adds or modifies a proof into the Cryptography Engine.
+    *       This method links a given `_proof` to a smart contract validator.
+    * @param _proof the AZTEC proof object
+    * @param _validatorAddress the address of the smart contract validator
+    */
+    function setProof(
+        uint24 _proof,
+        address _validatorAddress
+    ) public {
+        require(isOwner(), "only the owner can set a proof");
+        require(_validatorAddress != address(0x0), "expected the validator address to exist");
+        (uint8 epoch, uint8 category, uint8 id) = _proof.getProofComponents();
+        require(epoch &lt;= latestEpoch, "the proof epoch cannot be bigger than the latest epoch");
+        require(validators[epoch][category][id] == address(0x0), "existing proofs cannot be modified");
+        validators[epoch][category][id] = _validatorAddress;
+        emit SetProof(epoch, category, id, _validatorAddress);
+    }
+&nbsp;
+    /**
+     * @dev Increments the `latestEpoch` storage variable.
+     */
+    function incrementLatestEpoch() public {
+        require(isOwner(), "only the owner can update the latest epoch");
+        latestEpoch = latestEpoch.add(1);
+        emit IncrementLatestEpoch(latestEpoch);
+    }
+&nbsp;
+    /**
+    * @dev Returns the common reference string.
+    * We use a custom getter for `commonReferenceString` - the default getter created by making the storage
+    * variable public indexes individual elements of the array, and we want to return the whole array
+    */
+    function getCommonReferenceString() public view returns (bytes32[6] memory) {
+        return commonReferenceString;
+    }
+&nbsp;
+    function getValidatorAddress(uint24 _proof) public view returns (address validatorAddress) {
+<span class="cstat-no" title="statement not covered" >        bool isValidatorDisabled;</span>
+<span class="cstat-no" title="statement not covered" >        bool queryInvalid;</span>
+        assembly {
+            // To compute the storage key for validatorAddress[epoch][category][id], we do the following:
+            // 1. get the validatorAddress slot 
+            // 2. add (epoch * 0x10000) to the slot
+            // 3. add (category * 0x100) to the slot
+            // 4. add (id) to the slot
+            // i.e. the range of storage pointers allocated to validatorAddress ranges from
+            // validatorAddress_slot to (0xffff * 0x10000 + 0xff * 0x100 + 0xff = validatorAddress_slot 0xffffffff)
+&nbsp;
+            // Conveniently, the multiplications we have to perform on epoch, category and id correspond
+            // to their byte positions in _proof.
+            // i.e. (epoch * 0x10000) = and(_proof, 0xffff0000)
+            // and  (category * 0x100) = and(_proof, 0xff00)
+            // and  (id) = and(_proof, 0xff)
+&nbsp;
+            // Putting this all together. The storage slot offset from '_proof' is...
+            // (_proof &amp; 0xffff0000) + (_proof &amp; 0xff00) + (_proof &amp; 0xff)
+            // i.e. the storage slot offset IS the value of _proof
+            validatorAddress := sload(add(<span class="cstat-no" title="statement not covered" >_proof,</span> validators_slot))
+            queryInvalid := or(iszero(<span class="cstat-no" title="statement not covered" >validatorAddress)</span>, <span class="cstat-no" title="statement not covered" >isValidatorDisabled)</span>
+        }
+&nbsp;
+        // wrap both require checks in a single if test. This means the happy path only has 1 conditional jump
+        if (queryInvalid) {
+            require(validatorAddress != address(0x0), "expected the validator address to exist");
+            require(isValidatorDisabled == false, "expected the validator address to not be disabled");
+        }
+    }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 15:50:39 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

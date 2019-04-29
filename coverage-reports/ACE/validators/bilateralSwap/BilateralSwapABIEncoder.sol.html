@@ -1,0 +1,1874 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ACE/validators/bilateralSwap/BilateralSwapABIEncoder.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">ACE/validators/bilateralSwap/</a> BilateralSwapABIEncoder.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>266/266</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>117/117</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;0.6.0;
+&nbsp;
+/**
+ * @title Library to ABI encode the output of a bilateral swap proof verification
+ * @author AZTEC
+ * @dev Don't include this as an internal library. This contract uses a static memory table to cache
+ * elliptic curve primitives and hashes.
+ * Calling this internally from another function will lead to memory mutation and undefined behaviour.
+ * The intended use case is to call this externally via `staticcall`.
+ * External calls to OptimizedAZTEC can be treated as pure functions as this contract contains no
+ * storage and makes no external calls (other than to precompiles)
+ * Copyright Spilsbury Holdings Ltd 2019. All rights reserved.
+ **/
+&nbsp;
+library BilateralSwapABIEncoder {
+&nbsp;
+    /**
+    * Calldata map
+    * 0x04:0x24      = calldata location of proofData byte array - pointer to the proofData. 
+    * 0x24:0x44      = message sender // sender
+    * 0x44:0x64      = h_x     // crs
+    * 0x64:0x84      = h_y     // crs
+    * 0x84:0xa4      = t2_x0   // crs
+    * 0xa4:0xc4      = t2_x1   // crs
+    * 0xa4:0xc4      = t2_x1   // crs
+    * 0xc4:0xe4      = t2_y0   // crs
+    * 0xe4:0x104     = t2_y1   // crs
+    * 0x104:0x124    = length of proofData byte array 
+    * 0x124:0x144    = challenge
+    * 0x144:0x164    = offset in byte array to notes
+    * 0x164:0x184    = offset in byte array to inputOwners
+    * 0x184:0x1a4    = offset in byte array to outputOwners
+    * 0x1a4:0x1c4    = offset in byte array to metadata
+    **/
+&nbsp;
+    function encodeAndExit() internal pure {
+        assembly {
+            // set up initial variables
+            let notes := add(0x104, calldataload(0x144))
+            let noteOwners := add(0x124, calldataload(0x164)) // // one word after inputOwners = 1st
+            let metadataPtr := add(0x144, calldataload(0x184)) // two words after metadata = 1st
+&nbsp;
+            // First up, we need to do some checks to ensure we have been provided with correct data.
+            // We should only have 2 entries inside `bytes metadata` (only 2 output notes in total),
+            // and only 4 entries inside `noteOwners` (4 notes in bilateral swap proof)
+            if iszero(and(
+                eq(0x02, calldataload(sub(metadataPtr, 0x20))),
+                eq(0x04, calldataload(sub(noteOwners, 0x20)))
+            )) {
+                revert(0x00, 0x00) // no! bad! come back with good inputs!
+            }
+&nbsp;
+            // memory map of `proofOutputs`
+            // 0x00 - 0x160  = scratch data for note hash computation
+&nbsp;
+            // `returndata` starts at 0x160
+            // `proofOutputs` starts at 0x180
+            // 0x160 - 0x180 = relative offset in returndata to first bytes argument (0x20)
+            // 0x180 - 0x1a0 = byte length of `proofOutputs`
+            // 0x1a0 - 0x1c0 = number of `proofOutputs` entries (2)
+            // 0x1c0 - 0x1e0 = relative memory offset between `v` and start of `proofOutputs[0]` (0x80)
+            // 0x1e0 - 0x200 = relative memory offset between `v` and start of `proofOutputs[1]`
+    
+            // `proofOutput` - t, starts at 0x200
+            // 0x200 - 0x220 = length of `proofOutput`
+            // 0x220 - 0x240 = relative offset between `t` and `inputNotes`
+            // 0x240 - 0x260 = relative offset between `t` and `outputNotes`
+            // 0x260 - 0x280 = `publicOwner`
+            // 0x280 - 0x2a0 = `publicValue`
+            // 0x2a0 - 0x2c0 = `challenge`
+&nbsp;
+            // `inputNotes` starts at 0x2c0
+            // structure of `inputNotes` and `outputNotes`
+            // 0x00 - 0x20 = byte length of notes array
+            // 0x20 - 0x40 = number of notes = 1
+            // 0x40 - 0x60 = offset to start of input note (0x60)
+&nbsp;
+            // structure of a `note`
+            // 0x00 - 0x20 = size of `note`
+            // 0x20 - 0x40 = `owner`
+            // 0x40 - 0x60 = `noteHash`
+            // 0x60 - 0x80 = size of note `data`
+            // 0x80 - 0xa0 = compressed note coordinate `gamma` (part of `data`)
+            // 0xa0 - 0xc0 = compressed note coordinate `sigma` (part of `data`)
+            // 0xc0 - ???? = remaining note metadata
+&nbsp;
+            // Note organisation...
+            // The bilateral swap proof proves the following:
+            //   1. note[0].value == note[2].value
+            //   2. note[1].value == note[3].value
+            // In other words...
+            // note[0] = maker bid note
+            // note[1] = maker ask note
+            // note[2] = taker ask note
+            // note[3] = taker bid note
+&nbsp;
+            // We therefore have 2 balancing relationships
+            // 1. The maker bid note is destroyed and replaced with the taker ask note
+            // 2. The taker bid note is destroyed and replaced with the maker ask note
+&nbsp;
+            // Finally, we can translate this into 2 proofOutputs entries...
+            // In the first entry, `inputNotes` = [note[0]] and `outputNotes` = [note[2]]
+            // In the second entry, `inputNotes` = [note[3]] and `outputNotes` = [note[1]]
+&nbsp;
+            // `proofOutputs` must form a monolithic block of memory that we can return.
+            // `s` points to the memory location of the start of the current note
+            // `inputPtr` points to the start of the current `notes` dynamic bytes array
+&nbsp;
+            // length of proofOutputs is at 0x180
+&nbsp;
+            // we use memory from 0x00 - 0x140 as scratch memory
+&nbsp;
+            // return data starts at 0x160. As return data is `bytes proofOutputs`,
+            // the first word is the relative offset to the start of `proofOutputs` (i.e. 0x20)
+            mstore(0x160, 0x20)
+&nbsp;
+            /**
+            * Encoding of proofOutputs
+            * abi encoding of proofOutputs
+            * 0x00 : 0x20 = byte length of `proofOutputs` = 0x60 + L1 + L2
+            * 0x20 : 0x40 = number of `proofOutputs` entries (2)
+            * 0x40 : 0x60 = relative memory offset between `v` and start of `proofOutputs[0]` (0x80)
+            * 0x60 : 0x80 = relative memory offset between `v` and start of `proofOutputs[1]`
+            * 0x80 : 0x80 + L1    = start of proofOutputs[0]
+            * 0x80 + L1   : 0x80 + L1 + L2 = start of proofOutputs[1]
+            **/
+        
+            // 0x180 stores the total size of `bytes proofOutputs`. We don't know that yet, so leave blank
+&nbsp;
+            // 0x1a0 = number of proof outputs (2)
+            mstore(0x1a0, 0x02)                            // number of proofs
+&nbsp;
+            // 0x1c0 = relative offset to 1st entry (0x80, 4 words)
+            mstore(0x1c0, 0x80)                            // offset to 1st proof
+&nbsp;
+            /**
+            * Encoding of proofOutput
+            * 0x00 : 0x20 = byte length of `proofOutput` = 0x60 + L1 + L2
+            * 0x20 : 0x40 = relative offset to `bytes inputNotes`
+            * 0x40 : 0x60 = relative offset to `bytes outputNotes`
+            * 0x60 : 0x80 = publicOwner
+            * 0x80 : 0xa0 = publicValue
+            * 0xa0 : 0xc0 = challenge
+            * 0xc0 : 0xc0 + L1 = `bytes inputNotes` (L1 = 0x140 bytes)
+            * 0xc0 + L1 : 0xc0 + L1 + L2 = `bytes inputNotes`
+            *
+            * Start of proofOutput = 0x200
+            **/
+&nbsp;
+            // length of proofOutput is at 0x200. We don't know that yet, so leave blank
+&nbsp;
+            // relative offset to inputNotes = 0xc0 (6 words)
+            mstore(0x220, 0xc0)                            // location of inputNotes
+&nbsp;
+            // we know that inputNotes has 1 entry, and input notes don't have metadata.
+            // So we actually know the complete size of `bytes inputNotes`
+            // (it's 0x140 bytes, we'll get to that in a bit)
+            // =&gt; relative offset to outputNotes = 0x140 + 0xc0 = 0x200
+            mstore(0x240, 0x200)                           // location of outputNotes
+&nbsp;
+            // bilateral swap proof hardcodes `publicOwner` and `publicValue` to 0 (no public tokens)
+            mstore(0x260, 0x00)                             // publicOwner
+            mstore(0x280, 0x00)                             // publicValue
+            mstore(0x2a0, calldataload(0x124))              // challenge
+            /**
+            * Encoding of inputNotes
+            * 0x00 : 0x20 = byte length of `inputNotes` (0x120)
+            * 0x20 : 0x40 = number of input notes (0x01)
+            * 0x40 : 0x60 = relative offset to 1st input note (0x60)
+            * 0x60 : L    = 1st input note data (L = 0xe0)
+            *
+            * Start of inputNotes = 0x2a0
+            * Because we only have 1 note in this array, and that note has no metadata
+            * we know that the size of the note is 0xe0 bytes
+            * therefore, the size of inputNotes = 0xe0 + 3 words = 0x140 bytes.
+            * We store the byte length as 0x120 bytes because the length parameter
+            * of a dynamic bytes array does not include itself in the length calculation
+            **/
+&nbsp;
+            // 0x2c0 = length of inputNotes = 0x120
+            mstore(0x2c0, 0x120)
+&nbsp;
+            // 0x2e0 = number of notes (1)
+            mstore(0x2e0, 0x01) // 1 input note
+&nbsp;
+            // 0x300 = relative offset to input note (0x60)
+            mstore(0x300, 0x60) // relative offset to note data
+&nbsp;
+            /**
+            * Encoding of input note
+            * 0x00 : 0x20 = byte length of note (0xc0)
+            * 0x20 : 0x40 = note type (UXTO type = 0x01)
+            * 0x40 : 0x60 = note owner
+            * 0x60 : 0x80 = note hash
+            * 0x80 : 0xa0 = note data length (0x40)
+            * 0xa0 : 0xc0 = note coordinate 'gamma' (compressed)
+            * 0xc0 : 0xe0 = note coordinate 'sigma' (compressed)
+            *
+            * Start of note = 0x320
+            * The size of this note = 0xe0 bytes, so we store 0xc0 in the length parameter
+            **/
+&nbsp;
+            // we use memory from 0x00 - 0xa0 as scratch memory to compute note hash
+            // Note hash = keccak256(abi.encode(noteType, gammaX, gammaY, sigmaX, sigmaY))
+            mstore(0x00, 0x01) // store noteType at 0x01
+&nbsp;
+            // We want to copy note coordinate data into memory from 0x20 - 0xa0
+            // 'notes' points to the start of the notes array
+            // i.e. notes + 0x20 will point to the start of the data of the first entry
+            // first two entries are \bar{k} and \bar{a}, which we wish to skip over
+            // input note is notes[0] =&gt; we need to point to notes + 0x60
+            calldatacopy(0x20, add(notes, 0x60), 0x80) // copy gamma, sigma into 0x20 - 0xa0
+&nbsp;
+            // 0x320 = length of note (0xc0)
+            mstore(0x320, 0xc0)
+&nbsp;
+            // 0x340 = note type (UXTO type, 0x01)
+            mstore(0x340, 0x01) // note type
+&nbsp;
+            // 0x360 = note owners. We want the 1st entry in `noteOwners` (calldataload(noteOwners))
+            mstore(0x360, calldataload(noteOwners)) // note owner
+&nbsp;
+            // 0x380 = note hash, which is the hash of memory from 0x00 - 0xa0
+            mstore(0x380, keccak256(0x00, 0xa0)) // note hash
+&nbsp;
+            // 0x3a0 = noteData length (0x40, no metadata)
+            mstore(0x3a0, 0x40)
+&nbsp;
+            // We now need to store compressed note coordinates.
+            // We store them in compressed form, as this stuff will be emitted as an event and is not required
+            // for additional smart contract logic. Compressing reduces the event data size and saves a fair bit of gas
+&nbsp;
+            // To compress, we determine if the y-coordinate is odd.
+            // If it is, we set the 256th bit of the x-coordinate to 'true'.
+            // bn128 field elements are only 254 bits long, so we know that we won't override x-coordinate data
+            // (we already have the note coords in memory, so we load from memory instead of calldata)
+&nbsp;
+            // 0x3c0 = gamma
+            mstore(
+                0x3c0,
+                or(
+                    mload(0x20), // load x coordinate
+                    mul(         // multiply by (y &amp; 1 ? 2^255 : 0)
+                        and(mload(0x40), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+            
+            // 0x3e0 = sigma
+            mstore(
+                0x3e0,
+                or(
+                    mload(0x60),
+                    mul(
+                    and(mload(0x80), 0x01),
+                    0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            /**
+            * Encoding of output notes
+            *
+            * abi format is identical to input notes, but now we don't know the total size
+            * (because of variable length metadata)
+            * 0x00 : 0x20 = byte length of `outputNotes` (0x40 + L)
+            * 0x20 : 0x40 = number of output notes (0x01)
+            * 0x40 : 0x60 = relative offset to 1st output note (0x60)
+            * 0x60 : 0x60 + L    = 1st output note data
+            *
+            * Start of outputNotes = 0x400
+            **/
+&nbsp;
+            // 0x400 = byte length of output notes. We don't know what this is so leave blank for now
+&nbsp;
+            // 0x420 = number of output notes (0x01)
+            mstore(0x420, 0x01)
+&nbsp;
+            // 0x440 = relative offset to output note data (0x60)
+            mstore(0x440, 0x60)
+&nbsp;
+            /**
+            * Encoding of output note
+            * 0x00 : 0x20 = byte length of note (0xc0 + L)
+            * 0x20 : 0x40 = note type (UXTO type = 0x01)
+            * 0x40 : 0x60 = note owner
+            * 0x60 : 0x80 = note hash
+            * 0x80 : 0xa0 = note data length (0x40 + L)
+            * 0xa0 : 0xc0 = note coordinate 'gamma' (compressed)
+            * 0xc0 : 0xe0 = note coordinate 'sigma' (compressed)
+            * 0xe0 : 0xe0 + L = note metadata
+            *
+            * Start of note = 0x460
+            * The size of this note = 0xe0 bytes, so we store 0xc0 in the length parameter
+            **/
+&nbsp;
+            // next, copy note coordinates into memory to compute hash.
+            // We already stored the noteType at position 0x00, no need to do that again
+            // We need to copy data from notes[2].
+            // 1. notes + 0x20 = start of 1st entry data
+            // 2. size of a note entry = 0xc0 bytes
+            // 3. we want to point to 3rd word in our note entry, to skip over \bar{k}, \bar{a}
+            //    (i.e. add 0x40 to caldlata pointer)
+            // =&gt; offset = notes + 0x20 + 0x40 + (0xc0 * 2) = notes + 0x1e0
+            // =&gt; calldata pointer = notes + 0x1e0
+            calldatacopy(0x20, add(notes, 0x1e0), 0x80) // get gamma, sigma
+&nbsp;
+            // 0x460 = byte length of output note. Leave blank for now
+&nbsp;
+            // 0x480 = note type (0x01)
+            mstore(0x480, 0x01)      // note type
+&nbsp;
+            // 0x4a0 = note owner. We are accessing `notes[2]`, therefore
+            // the note owner = noteOwners[2].
+            // i.e. noteOwners + 0x40
+            mstore(0x4a0, calldataload(add(noteOwners, 0x40))) // note owner
+&nbsp;
+            // 0x4c0 = note hash
+            mstore(0x4c0, keccak256(0x00, 0xa0))
+&nbsp;
+            // 0x4e0 = noteData length. To get this, we need to identify our metadata length
+            // `metadataPtr` points to the relative offset, in the `metadata` array, to the first metadata entry
+            // ABI encoding of the input data should encode 2 metadata entries.
+            // =&gt; relative offset to this note's metadata = `calldataload(metadataPtr)`
+            let metadataIndex := calldataload(metadataPtr)
+&nbsp;
+            // To convert this into a calldata offset, we must add the number of bytes of calldata
+            // that preceeds the start of the `metadata` array.
+&nbsp;
+            // `bytes metadata` abi encoding:
+            // 0x00 : 0x20 = size of bytes array
+            // 0x20 : 0x40 = number of metadata entries (i)
+            // 0x40 : 0x40 + (0x20 * j) = relative offsets to each metadata entry
+            // 0x40 + (0x20 * j) : ??? = metadata entries
+&nbsp;
+            // The `metadata` pointer points to the 3rd word (at 0x40), the 1st relative offset
+            // Therefore, to compute the calldata offset to the metadata entry,
+            // we need to add `metadataPtr - 0x40` to `calldataload(metadataPtr)`.
+            // i.e. metadataCalldataPtr = calldataload(add(sub(metadataPtr, 0x40), metadataIndex))
+&nbsp;
+            // Because each metadata entry is itself a dynamic bytes array, the first word will
+            // be the length of the metadata entry. This is what we want, so we directly call
+            // `calldataload` on our offset
+            let metadataLength := calldataload(add(sub(metadataPtr, 0x40), metadataIndex))
+&nbsp;
+            // 0x4e0 = noteData length = 0x40 + metadata length
+            mstore(0x4e0, add(0x40, metadataLength))
+&nbsp;
+            // 0x500 = compressed note coordinate gamma
+            mstore(
+                0x500,
+                or(
+                    mload(0x20),
+                    mul(
+                        and(mload(0x40), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            // 0x520 = compressed note coordinate sigma
+            mstore(
+                0x520,
+                or(
+                    mload(0x60),
+                    mul(
+                        and(mload(0x80), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+            
+            // To complete `noteData`, we need to copy note metadata into memory (0x540)
+            // We know that metadataIndex + metadataPtr - 0x40 points to the start of the metadata entry in calldata.
+            // But the first word is the length of the metadata entry, which we don't want.
+            // So we need to point to the second word (the byte array data).
+            // i.e. we want to start copying at (metadataIndex + metadataPtr - 0x20)
+            // and we want to copy `metadataLength` number of bytes.
+            calldatacopy(0x540, add(metadataIndex, sub(metadataPtr, 0x20)), metadataLength)
+&nbsp;
+            // We now need to work backwards and fill in the parts of `bytes proofOutput` that we left blank,
+            // as we now can identify the size of the array
+&nbsp;
+            // 0x460 points to the size of the output note. The actual size is 0xe0 + metadataLength.
+            // So we record 0xc0 + metadataLength
+            // (because the 'size' of a byte array does not take into account the word needed to record the size)
+            mstore(0x460, add(0xc0, metadataLength))  // update size of note
+&nbsp;
+            // 0x400 = the size of `bytes outputNotes`.
+            // Raw size = 0x140 + metadataLength, so record 0x120 + metadataLength
+            mstore(0x400, add(0x120, metadataLength)) // update size of outputNotes
+&nbsp;
+            // 0x200 = the size of `bytes proofOutput`
+            // Raw size = 0x340 + metadataLength, so record 0x340 + metadataLength
+            mstore(0x200, add(0x320, metadataLength))
+&nbsp;
+            // Great! We've now finished writing the 1st proof output.
+            // We now need to write the ABI encoding of the 2nd proof output entry.
+&nbsp;
+            // 0x1e0 points to the relative offset in `bytes proofOutputs` to the second proof entry.
+            // This will be equal to the size of the 1st proof, plus the 0x80 preceeding bytes
+            // that are used to record `bytes proofOutputs`
+            // i.e. relative offset = 0x340 + 0x80 + metadataLength = 0x3c0 + metadataLength
+            mstore(0x1e0, add(0x3c0, metadataLength))
+&nbsp;
+            /** 
+            * proofOutput[1]
+            **/
+&nbsp;
+            // When writing data into proofOutputs[1], we cannot use an absolute offset as 
+            // metadataLength is not known at compile time.
+            // `proofPtr` points to the start of `proofOutputs[1]`
+            let proofPtr := add(0x540, metadataLength)
+&nbsp;
+            // (proofPtr) = size of proofOutput (leave blank for now)
+&nbsp;
+            // (proofPtr + 0x20) = offset to inputNotes (0xc0)
+            mstore(add(proofPtr, 0x20), 0xc0)
+&nbsp;
+            // (proofPtr + 0x40) = offset to outputNotes (0x200)
+            mstore(add(proofPtr, 0x40), 0x200)
+&nbsp;
+            // (proofPtr + 0x60) = publicOwner (0)
+            mstore(add(proofPtr, 0x60), 0x00) // publicOwner
+&nbsp;
+            // (proofPtr + 0x80) = publicValue (0)
+            mstore(add(proofPtr, 0x80), 0x00) // publicValue
+&nbsp;
+            // (proofPtr + 0xa0) = challenge
+            // we hash the challenge to get the second proof output's challenge - to preserve uniqueness
+            mstore(0xe0, calldataload(0x124))
+            mstore(add(proofPtr, 0xa0), keccak256(0xe0, 0x20)) // challenge
+&nbsp;
+            /** 
+            * proofOutput[1].inputNotes
+            *
+            * starts at (proofPtr + 0xc0)
+            **/
+&nbsp;
+            // (proofPtr + 0xc0) = byte size of inputNotes (0x120)
+            mstore(add(proofPtr, 0xc0), 0x120)
+&nbsp;
+            // (proofPtr + 0xe0) = number of input notes (0x01)
+            mstore(add(proofPtr, 0xe0), 0x01)
+&nbsp;
+            // (proofPtr + 0x100) = relative offset to input note data (0x60)
+            mstore(add(proofPtr, 0x100), 0x60)
+&nbsp;
+            /** 
+            * proofOutput[1].inputNotes[0]
+            *
+            * starts at (proofPtr + 0x120)
+            **/
+&nbsp;
+            // input note = notes[3]
+            // =&gt; offset = notes + 0x60 + (0xc0 * 3) = notes + 0x2a0
+            // copy note data into scratch memory to hash
+            calldatacopy(0x20, add(notes, 0x2a0), 0x80)
+&nbsp;
+            // (proofPtr + 0x120) = byte length of input note (0xc0)
+            mstore(add(proofPtr, 0x120), 0xc0) // length of input note
+&nbsp;
+            // (proofPtr + 0x140) = note type (UXTO type, 0x01)
+            mstore(add(proofPtr, 0x140), 0x01) // note type
+&nbsp;
+            // (proofPtr + 0x160) = note owner = noteOwners[3]
+            mstore(add(proofPtr, 0x160), calldataload(add(noteOwners, 0x60))) // note owner
+&nbsp;
+            // (proofPtr + 0x180) = note hash
+            mstore(add(proofPtr, 0x180), keccak256(0x00, 0xa0)) // note hash
+&nbsp;
+            // (proofPtr + 0x1a0) = noteData length (0x40 bytes)
+            mstore(add(proofPtr, 0x1a0), 0x40)
+&nbsp;
+            // (proofPtr + 0x1c0) = compressed coordinate 'gamma'
+            mstore(
+                add(proofPtr, 0x1c0),
+                or(
+                    mload(0x20),
+                    mul(
+                        and(mload(0x40), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            // (proofPtr + 0x1e0) = compressed coordinate 'sigma'
+            mstore(
+                add(proofPtr, 0x1e0),
+                or(
+                    mload(0x60),
+                    mul(
+                        and(mload(0x80), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            /** 
+            * proofOutput[1].outputNotes
+            *
+            * starts at (proofPtr + 0x200)
+            **/
+&nbsp;
+            // (proofPtr + 0x200) = byte length of output notes, leave blank for now
+&nbsp;
+            // (proofPtr + 0x220) = number of output notes (0x01)
+            mstore(add(proofPtr, 0x220), 0x01)
+&nbsp;
+            // (proofPtr + 0x240) = offset to output notes (0x60)
+            mstore(add(proofPtr, 0x240), 0x60)
+&nbsp;
+            /** 
+            * proofOutput[1].outputNotes[0]
+            *
+            * starts at (proofPtr + 0x260)
+            **/
+            // output note = notes[1]
+            // =&gt; offset = notes + 0x60 + 0xc0 = notes + 0x120
+            // copy note data into scratch memory to hash
+            calldatacopy(0x20, add(notes, 0x120), 0x80)
+&nbsp;
+            // (proofPtr + 0x260) = length of note, leave blank for now
+&nbsp;
+            // (proofPtr + 0x280) = note type (UXTO type, 0x01)
+            mstore(add(proofPtr, 0x280), 0x01) // note type
+&nbsp;
+            // (proofPtr + 0x2a0) = note owner (noteOwners[1])
+            mstore(add(proofPtr, 0x2a0), calldataload(add(noteOwners, 0x20)))
+&nbsp;
+            // (proofPtr + 0x2c0) = note hash
+            mstore(add(proofPtr, 0x2c0), keccak256(0x00, 0xa0))
+&nbsp;
+            // We now need to compute the metadata length. We want to access the 2nd metadata entry,
+            // at (metadataPtr + 0x20)
+            metadataIndex := calldataload(add(metadataPtr, 0x20))
+            metadataLength := calldataload(add(sub(metadataPtr, 0x40), metadataIndex))
+&nbsp;
+            // (proofPtr + 0x2e0) = noteData length (0x40 + metadataLength)
+            mstore(add(proofPtr, 0x2e0), add(0x40, metadataLength))
+&nbsp;
+            // (proofPtr + 0x300) = compressed coordinate 'gamma'
+            mstore(
+                add(proofPtr, 0x300),
+                or(
+                    mload(0x20),
+                    mul(
+                        and(mload(0x40), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            // (proofPtr + 0x320) = compressed coordinate 'sigma'
+            mstore(
+                add(proofPtr, 0x320),
+                or(
+                    mload(0x60),
+                    mul(
+                        and(mload(0x80), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+            )
+&nbsp;
+            // (proofPtr + 0x340) = start of note metadata
+            calldatacopy(add(proofPtr, 0x340), add(metadataIndex, sub(metadataPtr, 0x20)), metadataLength)
+&nbsp;
+            // Next, work backwards and fill in the remaining gaps
+            // (proofPtr + 0x260) = proofOutputs[1].outputNotes[0].length (0xc0 + metadataLength)
+            mstore(add(proofPtr, 0x260), add(0xc0, metadataLength))
+&nbsp;
+            // (proofPtr + 0x200) = proofOutputs[1].outputNotes.length (0x120 + metadataLength)
+            mstore(add(proofPtr, 0x200), add(0x120, metadataLength))
+&nbsp;
+            // (proofPtr) = proofOutputs[1].length = (0x320 + metadataLength)
+            mstore(proofPtr, add(0x320, metadataLength))
+&nbsp;
+            // (0x180) = proofOutputs.length
+            // We previously stored proofOutputs[0].length at 0x200
+            // Total length = combination of
+            // 1. proofOutputs[0].length + 0x20 (extra word because of length variable)
+            // 2. proofOutputs[1].length + 0x20 (^^)
+            // 3. data to record relative offsets (0x20 * number of outputs) = (0x40)
+            // 4. data to record number of entries (0x20)
+            
+            // We stored proofOutputs[0].length at 0x200
+            // and we know that proofOutputs[1].length = 0x320 + metadataLength
+            // =&gt; length = mload(0x200) + metadataLength + 0x320 + 0x40 + 0x40 + 0x20
+            // =&gt; length = mload(0x200) + metadataLength + 0x3c0
+            mstore(0x180, add(add(0x3c0, metadataLength), mload(0x200)))
+&nbsp;
+            // Great, we've done it! Now all that is left is to return from this transaction.
+            // Our return data starts at 0x160.
+            // Total size of `bytes proofOutpust` = proofOutputs.length + 0x20
+            // We need 1 extra word (at 0x160) for the relative offset to get to `bytes proofOutputs`
+            // =&gt; returndata size = proofOutputs.length + 0x40
+            // = mload(0x180) + 0x40
+            return(0x160, add(mload(0x180), 0x40)) // *kazoo noises*
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 15:50:39 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

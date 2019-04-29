@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for libs/LibEIP712.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">libs/</a> LibEIP712.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>55/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>29/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">223×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">223×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">32×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;0.6.0;
+&nbsp;
+&nbsp;
+/**
+ * @title Library of EIP712 utility constants and functions
+ * @author AZTEC
+ * Copyright Spilbury Holdings Ltd 2019. All rights reserved.
+ **/
+contract LibEIP712 {
+&nbsp;
+    // EIP712 Domain Name value
+    string constant internal EIP712_DOMAIN_NAME = "AZTEC_CRYPTOGRAPHY_ENGINE";
+&nbsp;
+    // EIP712 Domain Version value
+    string constant internal EIP712_DOMAIN_VERSION = "1";
+&nbsp;
+    // Hash of the EIP712 Domain Separator Schema
+    bytes32 constant internal EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH = keccak256(abi.encodePacked(
+        "EIP712Domain(",
+            "string name,",
+            "string version,",
+            "address verifyingContract",
+        ")"
+    ));
+&nbsp;
+    // Hash of the EIP712 Domain Separator data
+    // solhint-disable-next-line var-name-mixedcase
+    bytes32 public EIP712_DOMAIN_HASH;
+&nbsp;
+    constructor ()
+        public
+    {
+        EIP712_DOMAIN_HASH = keccak256(abi.encode(
+            EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH,
+            keccak256(bytes(EIP712_DOMAIN_NAME)),
+            keccak256(bytes(EIP712_DOMAIN_VERSION)),
+            address(this)
+        ));
+    }
+&nbsp;
+    /// @dev Calculates EIP712 encoding for a hash struct in this EIP712 Domain.
+    /// @param _hashStruct The EIP712 hash struct.
+    /// @return EIP712 hash applied to this EIP712 Domain.
+    function hashEIP712Message(bytes32 _hashStruct)
+        internal
+        view
+        returns (bytes32 _result)
+    {
+        bytes32 eip712DomainHash = EIP712_DOMAIN_HASH;
+&nbsp;
+        // Assembly for more efficient computing:
+        // keccak256(abi.encodePacked(
+        //     EIP191_HEADER,
+        //     EIP712_DOMAIN_HASH,
+        //     hashStruct
+        // ));
+&nbsp;
+        assembly {
+            // Load free memory pointer. We're not going to use it - we're going to overwrite it!
+            // We need 0x60 bytes of memory for this hash,
+            // cheaper to overwrite the free memory pointer at 0x40, and then replace it, than allocating free memory
+            let memPtr := mload(0x40)
+            mstore(0x00, 0x1901)               // EIP191 header
+            mstore(0x20, <span class="cstat-no" title="statement not covered" >eip712DomainHash)</span>     // EIP712 domain hash
+            mstore(0x40, <span class="cstat-no" title="statement not covered" >_hashStruct)</span>          // Hash of struct
+            _result := keccak256(0x1e, 0x42)   // compute hash
+            // replace memory pointer
+            mstore(0x40, <span class="cstat-no" title="statement not covered" >memPtr)</span>
+        }
+    }
+&nbsp;
+    /// @dev Extracts the address of the signer with ECDSA.
+    /// @param _message The EIP712 message.
+    /// @param _signature The ECDSA values, v, r and s.
+    /// @return The address of the message signer.
+    function recoverSignature(
+        bytes32 _message,
+        bytes memory _signature
+    ) internal view returns (address _signer) {
+        bool result;
+        assembly {
+            // Here's a little trick we can pull. We expect `_signature` to be a byte array, of length 0x60, with
+            // 'v', 'r' and 's' located linearly in memory. Preceeding this is the length parameter of `_signature`.
+            // We *replace* the length param with the signature msg to get a memory block formatted for the precompile
+&nbsp;
+            // load length as a temporary variable
+            let byteLength := mload(_signature)
+&nbsp;
+            // store the signature message
+            mstore(_signature, _message)
+&nbsp;
+            // load 'v' - we need it for a condition check
+            let v := mload(add(_signature, 0x20))
+&nbsp;
+            result := and(
+                and(
+                    // validate signature length == 0x60 bytes
+                    eq(byteLength, 0x60),
+                    // validate v == 27 or v == 28
+                    or(eq(v, 27), eq(v, 28))
+                ),
+                // validate call to precompile succeeds
+                staticcall(gas, 0x01, _signature, 0x80, _signature, 0x20)
+            )
+            // save the _signer only if the first word in _signature is not `_message` anymore
+            switch eq(_message, mload(_signature))
+            case 0 {
+                _signer := mload(_signature)
+            }
+            mstore(<span class="cstat-no" title="statement not covered" >_signature,</span> <span class="cstat-no" title="statement not covered" >byteLength)</span> // and put the byte length back where it belongs
+        }
+        // wrap Failure States in a single if test, so that happy path only has 1 conditional jump
+        if (!(result &amp;&amp; (_signer == address(0x0)))) {
+            require(_signer != address(0x0), "signer address cannot be 0");
+            require(result, "signature recovery failed");
+        }
+    }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 15:50:39 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

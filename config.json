@@ -1,7 +1,0 @@
-{
-  "client_name": "aztec",
-  "client_audit_report_repo": "https://github.com/ConsenSys/aztec-audit-report-2019-04",
-  "internal_audit_repo": "https://github.com/ConsenSys/aztec-audit-internal-2019-04",
-  "github_todo_audit_repo": "https://github.com/ConsenSys/todo-audits",
-  "template": "variant-1"
-}

@@ -1,0 +1,290 @@
+==== External Call To Fixed Address ====
+SWC ID: 107
+Severity: Low
+Contract: ZkAsset
+Function name: constructor
+PC address: 1482
+Estimated Gas Usage: 45598 - 217513
+The contract executes an external message call.
+An external function call to a fixed contract address is executed. Make sure that the callee contract has been reviewed carefully.
+--------------------
+In file: zkasset.sol:1666
+
+ace.createNoteRegistry(
+            _linkedTokenAddress,
+            _scalingFactor,
+            _canAdjustSupply, // false,
+            _canConvert // true
+        )
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{}
+
+==== Integer Overflow ====
+SWC ID: 101
+Severity: High
+Contract: ERC20
+Function name: increaseAllowance(address,uint256)
+PC address: 2546
+Estimated Gas Usage: 21085 - 84055
+The binary addition can overflow.
+The operands of the addition operation are not sufficiently constrained. The addition could therefore result in an integer overflow. Prevent the overflow by checking inputs or ensure sure that the overflow is caught by an assertion.
+--------------------
+In file: zkasset.sol:54
+
+a + b
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "6": {
+        "calldata": "0x095ea7b380808080808080808080808001010110022002010104088004102001022001018020808080808080808080808080808080808080808080208080200090000223",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "7": {
+        "calldata": "0x23b872dd01010101010101010101010101010101010101010101010101010101010101018010001002080040004000100101010101010101010101010201010802480541408c020420840540828202dfe9c0200200000000000000000000000000000060",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== External Call To Fixed Address ====
+SWC ID: 107
+Severity: Low
+Contract: ZkAsset
+Function name: [confidentialTransfer(bytes), confidentialTransfer(bytes)] (ambiguous)
+PC address: 2810
+Estimated Gas Usage: 2446 - 7152
+The contract executes an external message call.
+An external function call to a fixed contract address is executed. Make sure that the callee contract has been reviewed carefully.
+--------------------
+In file: zkasset.sol:1692
+
+ace.validateProof(JOIN_SPLIT_PROOF, msg.sender, _proofData)
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "25": {
+        "calldata": "0x7400eabb000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== External Call To Fixed Address ====
+SWC ID: 107
+Severity: Low
+Contract: ZkAsset
+Function name: [confidentialTransferFrom(uint24,bytes), confidentialTransferFrom(uint24,bytes)] (ambiguous)
+PC address: 3587
+Estimated Gas Usage: 2406 - 6825
+The contract executes an external message call.
+An external function call to a fixed contract address is executed. Make sure that the callee contract has been reviewed carefully.
+--------------------
+In file: zkasset.sol:1763
+
+ace.updateNoteRegistry(_proof, _proofOutput, msg.sender)
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "25": {
+        "calldata": "0xcdfea90e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: disabledValidators(uint256,uint256,uint256)
+PC address: 4828
+Estimated Gas Usage: 373 - 468
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1071
+
+bool[0x100][0x100][0x10000] public disabledValidators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0xa5468ca20101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101400110200801088040024001101004040140808001020102028004",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "4": {
+        "calldata": "0x465903dd800000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: disabledValidators(uint256,uint256,uint256)
+PC address: 4847
+Estimated Gas Usage: 416 - 511
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1071
+
+bool[0x100][0x100][0x10000] public disabledValidators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0xa5468ca20101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "4": {
+        "calldata": "0x465903dd000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: disabledValidators(uint256,uint256,uint256)
+PC address: 4865
+Estimated Gas Usage: 459 - 554
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1071
+
+bool[0x100][0x100][0x10000] public disabledValidators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0xa5468ca20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "3": {
+        "calldata": "0x465903dd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080808080808080808080808080808080808080808080808080800200",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: validators(uint256,uint256,uint256)
+PC address: 5793
+Estimated Gas Usage: 417 - 512
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1068
+
+address[0x100][0x100][0x10000] public validators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0xa5468ca20101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010180400240080801040401",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "4": {
+        "calldata": "0x4e982ca7800000000000000000000000000000000000000000000000000000000000108000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: validators(uint256,uint256,uint256)
+PC address: 5813
+Estimated Gas Usage: 460 - 555
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1068
+
+address[0x100][0x100][0x10000] public validators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0xa5468ca20101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010180010101010101010101010101",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    },
+    "4": {
+        "calldata": "0x4e982ca7000000000000000000000000000000000000000000000000000000000000040480000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+==== Exception State ====
+SWC ID: 110
+Severity: Low
+Contract: ACE
+Function name: validators(uint256,uint256,uint256)
+PC address: 5832
+Estimated Gas Usage: 503 - 598
+A reachable exception has been detected.
+It is possible to trigger an exception (opcode 0xfe). Exceptions can be caused by type errors, division by zero, out-of-bounds array access, or assert violations. Note that explicit `assert()` should only be used to check invariants. Use `require()` for regular input checking.
+--------------------
+In file: zkasset.sol:1068
+
+address[0x100][0x100][0x10000] public validators
+
+--------------------
+--------------------
+Transaction Sequence:
+
+{
+    "2": {
+        "calldata": "0x4e982ca7000000000000000000000000000000000000000000000000000000000000102000000000000000000000000000000000000000000000000000000000000000008080808080808080808000000000000000000000000000000000000000000000",
+        "call_value": "0x0",
+        "caller": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    }
+}
+
+

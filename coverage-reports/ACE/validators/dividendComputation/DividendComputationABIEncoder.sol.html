@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ACE/validators/dividendComputation/DividendComputationABIEncoder.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">ACE/validators/dividendComputation/</a> DividendComputationABIEncoder.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.85% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>244/260</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.72% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>77/78</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;0.6.0;
+&nbsp;
+/**
+ * @title Library to ABI encode the output of a dividend computation proof verification operation
+ * @author AZTEC
+ * @dev Don't include this as an internal library. This contract uses a static memory table to cache
+ * elliptic curve primitives and hashes.
+ * Calling this internally from another function will lead to memory mutation and undefined behaviour.
+ * The intended use case is to call this externally via `staticcall`.
+ * External calls to OptimizedAZTEC can be treated as pure functions as this contract contains no
+ * storage and makes no external calls (other than to precompiles)
+ * Copyright Spilsbury Holdings Ltd 2019. All rights reserved.
+ **/
+&nbsp;
+library DividendComputationABIEncoder {
+    /**
+    * New calldata map
+    * 0x04:0x24      = calldata location of proofData byte array  // proof data byte array
+    * 0x24:0x44      = message sender // address
+    * 0x44:0x64      = h_x     // crs
+    * 0x64:0x84      = h_y     // crs
+    * 0x84:0xa4      = t2_x0   // crs
+    * 0xa4:0xc4      = t2_x1   // crs
+    * 0xc4:0xe4      = t2_y0   // crs
+    * 0xe4:0x104     = t2_y1   // crs
+    * 0x104:0x124    = length of proofData byte array
+    * 0x124:0x144    = challenge
+    * 0x144:0x164    = za
+    * 0x164:0x184    = zb
+    * 0x184:0x1a4    = offset in byte array to notes
+    * 0x1a4:0x1c4    = offset in byte array to inputOwners
+    * 0x1c4:0x1e4    = offset in byte array to outputOwners
+    * 0x1e4:0x204    = offset in byte array to metadata
+    */ 
+    function encodeAndExit() internal pure {
+        assembly {
+            // set up initial variables
+            let notes := add(0x104, calldataload(0x184))
+            let n := calldataload(notes)
+            let m := 1
+            let inputOwners := add(0x124, calldataload(0x1a4)) // one word after outputOwners = 1st
+            let outputOwners := add(0x124, calldataload(0x1c4)) // one word after outputOwners = 1st
+            let metadata := add(0x144, calldataload(0x1e4)) // two words after metadata = 1st
+&nbsp;
+            // `returndata` starts at 0x160
+            // `proofOutputs` starts at 0x180
+            // 0x160 - 0x180 = relative offset in returndata to first bytes argument (0x20)
+            // 0x180 - 0x1a0 = byte length of `proofOutputs`
+            // 0x1a0 - 0x1c0 = number of `proofOutputs` entries (1)
+            // 0x1c0 - 0x1e0 = relative memory offset between `v` and start of `proofOutput`
+&nbsp;
+            // `proofOutput` - t, starts at 0x1e0
+            // 0x1e0 - 0x200 = length of `proofOutput`
+            // 0x200 - 0x220 = relative offset between `t` and `inputNotes`
+            // 0x220 - 0x240 = relative offset between `t` and `outputNotes`
+            // 0x240 - 0x260 = `publicOwner`
+            // 0x260 - 0x280 = `publicValue`
+&nbsp;
+            // `inputNotes` starts at 0x280
+            // structure of `inputNotes` and `outputNotes`
+            // 0x00 - 0x20 = byte length of notes array
+            // 0x20 - 0x40 = number of notes `i`
+            // the next `i` consecutive blocks of 0x20-sized memory contain relative offset between
+            // start of notes array and the location of the `note`
+&nbsp;
+            // structure of a `note`
+            // 0x00 - 0x20 = size of `note`
+            // 0x20 - 0x40 = `noteType`
+            // 0x40 - 0x60 = `owner`
+            // 0x60 - 0x80 = `noteHash`
+            // 0x80 - 0xa0 = size of note `data`
+            // 0xa0 - 0xc0 = compressed note coordinate `gamma` (part of `data`)
+            // 0xc0 - 0xe0 = compressed note coordinate `sigma` (part of `data`)
+            // 0xe0 - ???? = remaining note metadata
+&nbsp;
+            // `proofOutputs` must form a monolithic block of memory that we can return.
+            // `s` points to the memory location of the start of the current note
+            // `inputPtr` points to the start of the current `notes` dynamic bytes array
+&nbsp;
+            // length of proofOutputs is at s
+            mstore(0x1a0, 0x01)                            // number of proofs
+            mstore(0x1c0, 0x60)                            // offset to 1st proof
+            // length of proofOutput is at s + 0x60
+            mstore(0x200, 0xc0)                            // location of inputNotes
+            // location of outputNotes is at s + 0xc0
+            mstore(0x240, 0x00)             // publicOwner
+            // store kPublic. If kPublic is negative, store correct signed representation,
+            // relative to 2^256, not to the order of the bn128 group
+            let kPublic := 0
+            mstore(0x260, kPublic)
+&nbsp;
+            // 0x280 = challenge
+            mstore(0x280, calldataload(0x124))
+&nbsp;
+            let inputPtr := 0x2a0                                 // point to inputNotes
+            mstore(add(inputPtr, 0x20), m)                        // number of input notes
+            // set note pointer, offsetting lookup indices for each input note
+            let s := add(0x2e0, mul(m, 0x20))
+&nbsp;
+            for { let i := 0 } lt(i, m) { i := add(i, 0x01) } {
+                let noteIndex := add(add(notes, 0x20), mul(i, 0xc0))
+                // copy note data to 0x00 - 0x80
+                mstore(0x00, 0x01) // store note type at 0x00
+                calldatacopy(0x20, add(noteIndex, 0x40), 0x80) // get gamma, sigma
+&nbsp;
+&nbsp;
+                // store note length in `s`
+                mstore(s, 0xc0)
+                // store note type (UXTO = 1) in `s+0x20`
+                mstore(add(s, 0x20), 0x01)
+                // store note owner in `s + 0x20`
+                mstore(add(s, 0x40), calldataload(inputOwners))
+            
+                // store note hash in `s + 0x60`
+                mstore(add(s, 0x60), keccak256(0x00, 0xa0))
+&nbsp;
+                // store note metadata length in `s + 0x80` (just the coordinates)
+                mstore(add(s, 0x80), 0x40)
+                // store compressed note coordinate gamma in `s + 0x80`
+                mstore(
+                    add(s, 0xa0),
+                    or(
+                        calldataload(add(noteIndex, 0x40)),
+                        mul(
+                            and(calldataload(add(noteIndex, 0x60)), 0x01),
+                            0x8000000000000000000000000000000000000000000000000000000000000000
+                        )
+                    )
+                )
+                // store compressed note coordinate sigma in `s + 0xa0`
+                mstore(
+                    add(s, 0xc0),
+                    or(
+                        calldataload(add(noteIndex, 0x80)),
+                        mul(
+                            and(calldataload(add(noteIndex, 0xa0)), 0x01),
+                            0x8000000000000000000000000000000000000000000000000000000000000000
+                        )
+                    )
+                )
+                // compute the relative offset to index this note in our returndata
+                mstore(add(add(inputPtr, 0x40), mul(i, 0x20)), sub(s, inputPtr)) // relative offset to note
+        
+                // increase s by note length
+                s := add(s, 0xe0)
+            }
+&nbsp;
+            // transition between input and output notes
+            // store total length of inputNotes at first index of inputNotes 
+            mstore(<span class="cstat-no" title="statement not covered" >inputPtr,</span> sub(sub(<span class="cstat-no" title="statement not covered" >s,</span> <span class="cstat-no" title="statement not covered" >inputPtr)</span>, 0x20))
+            mstore(0x220, add(0xc0, <span class="cstat-no" title="statement not covered" >sub(<span class="cstat-no" title="statement not covered" >s,</span> <span class="cstat-no" title="statement not covered" >inputPtr)</span>)</span>) // store relative memory offset to outputNotes
+<span class="cstat-no" title="statement not covered" >            inputPtr := <span class="cstat-no" title="statement not covered" >s</span></span>
+            mstore(add(<span class="cstat-no" title="statement not covered" >inputPtr,</span> 0x20), sub(<span class="cstat-no" title="statement not covered" >n,</span> m)) // store number of output notes
+            s := add(<span class="cstat-no" title="statement not covered" >s,</span> add(0x40, mul(<span class="cstat-no" title="statement not covered" >sub(<span class="cstat-no" title="statement not covered" >n,</span> <span class="cstat-no" title="statement not covered" >m)</span>,</span> 0x20)))
+&nbsp;
+            // output notes
+            for { <span class="cstat-no" title="statement not covered" >let i := <span class="cstat-no" title="statement not covered" >m </span></span>} lt(i, n) { i := add(i, 0x01) } {
+                // get note index
+                let noteIndex := add(add(notes, 0x20), mul(i, 0xc0))
+                // get pointer to metadata
+                let metadataIndex := calldataload(add(metadata, mul(sub(i, m), 0x20)))
+                // get size of metadata
+                let metadataLength := calldataload(add(sub(metadata, 0x40), metadataIndex))
+&nbsp;
+                mstore(0x00, 0x01) // store note type at 0x00
+                // copy note data to 0x20 - 0xa0
+                calldatacopy(0x20, add(noteIndex, 0x40), 0x80) // get gamma, sigma
+&nbsp;
+                // store note length in `s`
+                mstore(s, add(0xc0, metadataLength))
+                // store note type (UXTO = 1) in `s+0x20`
+                mstore(add(s, 0x20), 0x01)
+                // store the owner of the note in `s + 0x20`
+                mstore(add(s, 0x40), calldataload(add(outputOwners, mul(sub(i, m), 0x20))))
+                // store note hash
+                mstore(add(s, 0x60), keccak256(0x00, 0xa0))
+                // store note metadata length if `s + 0x60`
+                mstore(add(s, 0x80), add(0x40, metadataLength))
+                // store compressed note coordinate gamma in `s + 0x80`
+                mstore(
+                    add(s, 0xa0),
+                    or(
+                        mload(0x20),
+                        mul(
+                            and(mload(0x40), 0x01),
+                            0x8000000000000000000000000000000000000000000000000000000000000000
+                        )
+                    )
+                )
+                // store compressed note coordinate sigma in `s + 0xa0`
+                mstore(
+                add(s, 0xc0),
+                or(
+                    mload(0x60),
+                    mul(
+                        and(mload(0x80), 0x01),
+                        0x8000000000000000000000000000000000000000000000000000000000000000
+                    )
+                )
+                )
+                // copy metadata into `s + 0xc0`
+                calldatacopy(add(s, 0xe0), add(metadataIndex, sub(metadata, 0x20)), metadataLength)
+                // compute the relative offset to index this note in our returndata
+                mstore(add(add(inputPtr, 0x40), mul(sub(i, m), 0x20)), sub(s, inputPtr)) // relative offset to note
+&nbsp;
+                // increase s by note length
+                s := add(s, add(mload(s), 0x20))
+            }
+&nbsp;
+            // cleanup. the length of the outputNotes = s - inputPtr
+            mstore(inputPtr, sub(sub(s, inputPtr), 0x20)) // store length of outputNotes at start of outputNotes
+            let notesLength := sub(s, 0x2a0)
+            // store length of proofOutput at 0x160. 0xa0 comes from:
+            // (offset to input notes, offset to output notes, publicOwner, publicValue, challenge)
+            mstore(0x1e0, add(0xa0, notesLength))
+            mstore(0x180, add(0x100, notesLength)) // store length of proofOutputs at 0x100
+&nbsp;
+            mstore(0x160, 0x20)
+            return(0x160, add(0x140, notesLength)) // return the final byte array
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 15:50:39 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

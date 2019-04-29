@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ERC1724/ZkAsset.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">ERC1724/</a> ZkAsset.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>62/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>54/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;0.6.0;
+&nbsp;
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+&nbsp;
+import "../ACE/NoteRegistry.sol";
+import "../ACE/ACE.sol";
+import "../interfaces/IAZTEC.sol";
+import "../interfaces/IZkAsset.sol";
+import "../libs/LibEIP712.sol";
+import "../libs/ProofUtils.sol";
+&nbsp;
+/**
+ * @title ZkAsset
+ * @author AZTEC
+ * @dev A contract defining the standard interface and behaviours of a confidential asset. 
+ * The ownership values and transfer values are encrypted. 
+ * Copyright Spilbury Holdings Ltd 2019. All rights reserved.
+ **/
+contract ZkAsset is IZkAsset, IAZTEC, LibEIP712 {
+    using NoteUtils for bytes;
+    using SafeMath for uint256;
+    
+&nbsp;
+    // EIP712 Domain Name value
+    string constant internal EIP712_DOMAIN_NAME = "ZK_ASSET";
+&nbsp;
+    // EIP712 Domain Version value
+    string constant internal EIP712_DOMAIN_VERSION = "1";
+&nbsp;
+    bytes32 constant internal NOTE_SIGNATURE_TYPEHASH = keccak256(abi.encodePacked(
+        "NoteSignature(",
+            "bytes32 noteHash,",
+            "address spender,",
+            "bool status",
+        ")"
+    ));
+&nbsp;
+    ACE public ace;
+    IERC20 public linkedToken;
+    NoteRegistry.Flags public flags;
+&nbsp;
+    uint256 public scalingFactor;
+    mapping(bytes32 =&gt; mapping(address =&gt; bool)) public confidentialApproved;
+&nbsp;
+    constructor(
+        address _aceAddress,
+        address _linkedTokenAddress,
+        uint256 _scalingFactor,
+        bool _canAdjustSupply,
+        bool _canConvert
+    ) public {
+        EIP712_DOMAIN_HASH = keccak256(abi.encodePacked(
+            EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH,
+            keccak256(bytes(EIP712_DOMAIN_NAME)),
+            keccak256(bytes(EIP712_DOMAIN_VERSION)),
+            bytes32(uint256(address(this)))
+        ));
+        flags = NoteRegistry.Flags({
+            active: true,
+            canAdjustSupply: false,
+            canConvert: true
+        });
+        ace = ACE(_aceAddress);
+        linkedToken = IERC20(_linkedTokenAddress);
+        scalingFactor = _scalingFactor;
+        ace.createNoteRegistry(
+            _linkedTokenAddress,
+            _scalingFactor,
+            _canAdjustSupply, // false,
+            _canConvert // true
+        );
+        emit CreateZkAsset(
+            _aceAddress,
+            _linkedTokenAddress,
+            _scalingFactor,
+            _canAdjustSupply,
+            _canConvert
+        );
+    }
+    
+    /**
+    * @dev Executes a basic unilateral, confidential transfer of AZTEC notes 
+    * Will submit _proofData to the validateProof() function of the Cryptography Engine. 
+    *
+    * Upon successfull verification, it will update note registry state - creating output notes and 
+    * destroying input notes.
+    * 
+    * @param _proofData - bytes variable outputted from a proof verification contract, representing 
+    * transfer instructions for the ACE
+    */
+    function confidentialTransfer(bytes memory _proofData) public {
+        bytes memory proofOutputs = ace.validateProof(JOIN_SPLIT_PROOF, msg.sender, _proofData);
+        confidentialTransferInternal(proofOutputs);
+    }
+&nbsp;
+    /**
+    * @dev Note owner approving a third party, another address, to spend the note on 
+    * owner's behalf. This is necessary to allow the confidentialTransferFrom() method
+    * to be called
+    * 
+    * @param _noteHash - keccak256 hash of the note coordinates (gamma and sigma)
+    * @param _spender - address being approved to spend the note
+    * @param _status - defines whether the _spender address is being approved to spend the 
+    * note, or if permission is being revoked
+    * @param _signature - ECDSA signature from the note owner that validates the
+    * confidentialApprove() instruction   
+    */
+    function confidentialApprove(
+        bytes32 _noteHash,
+        address _spender,
+        bool _status,
+        bytes memory _signature
+    ) public {
+        ( uint8 status, , , address noteOwner ) = ace.getNote(address(this), _noteHash);
+        require(status == 1, "only unspent notes can be approved");
+        address signer;
+        if (_signature.length != 0) {
+            // validate EIP712 signature
+            bytes32 hashStruct = keccak256(abi.encode(
+                NOTE_SIGNATURE_TYPEHASH,
+                _noteHash,
+                _spender,
+                status
+            ));
+            bytes32 msgHash = hashEIP712Message(hashStruct);
+            signer = recoverSignature(
+                msgHash,
+                _signature
+            );
+        } else {
+            signer = msg.sender;
+        }
+        require(signer == noteOwner, "the note owner did not sign this message");
+        confidentialApproved[_noteHash][_spender] = _status;
+    }
+&nbsp;
+    /**
+    * @dev Executes a value transfer mediated by smart contracts. The method is supplied with
+    * transfer instructions represented by a bytes _proofOutput argument that was outputted
+    * from a proof verification contract.
+    * 
+    * @param _proof - uint24 variable which acts as a unique identifier for the proof which
+    * _proofOutput is being submitted. _proof contains three concatenated uint8 variables: 
+    * 1) epoch number 2) category number 3) ID number for the proof
+    * @param _proofOutput - output of a zero-knowledge proof validation contract. Represents
+    * transfer instructions for the ACE
+    */
+    function confidentialTransferFrom(uint24 _proof, bytes memory _proofOutput) public {
+        (bytes memory inputNotes,
+        bytes memory outputNotes,
+        address publicOwner,
+        int256 publicValue) = _proofOutput.extractProofOutput();
+        
+        uint256 length = inputNotes.getLength();
+        for (uint i = 0; i &lt; length; i += 1) {
+            (, bytes32 noteHash, ) = inputNotes.get(i).extractNote();
+            require(
+                confidentialApproved[noteHash][msg.sender] == true,
+                "sender does not have approval to spend input note"
+            );
+        }
+&nbsp;
+        ace.updateNoteRegistry(_proof, _proofOutput, msg.sender);
+&nbsp;
+        logInputNotes(inputNotes);
+        logOutputNotes(outputNotes);
+&nbsp;
+        if (publicValue &lt; 0) {
+            emit ConvertTokens(publicOwner, uint256(-publicValue));
+        }
+        if (publicValue &gt; 0) {
+            emit RedeemTokens(publicOwner, uint256(publicValue));
+        }
+    }
+    
+    function confidentialTransferInternal(bytes memory proofOutputs) internal {
+        for (uint i = 0; i &lt; proofOutputs.getLength(); i += 1) {
+            bytes memory proofOutput = proofOutputs.get(i);
+            ace.updateNoteRegistry(JOIN_SPLIT_PROOF, proofOutput, address(this));
+            
+            (bytes memory inputNotes,
+            bytes memory outputNotes,
+            address publicOwner,
+            int256 publicValue) = proofOutput.extractProofOutput();
+&nbsp;
+            logInputNotes(inputNotes);
+            logOutputNotes(outputNotes);
+            if (publicValue &lt; 0) {
+                emit ConvertTokens(publicOwner, uint256(-publicValue));
+            }
+            if (publicValue &gt; 0) {
+                emit RedeemTokens(publicOwner, uint256(publicValue));
+            }
+        }
+    }
+&nbsp;
+    /**
+    * @dev Emit events for all input notes, which represent notes being destroyed
+    * and removed from the note registry
+    * 
+    * @param inputNotes - input notes being destroyed and removed from note registry state
+    */
+    function logInputNotes(bytes memory inputNotes) internal {
+        for (uint i = 0; i &lt; inputNotes.getLength(); i += 1) {
+            (address noteOwner, bytes32 noteHash, bytes memory metadata) = inputNotes.get(i).extractNote();
+            emit DestroyNote(noteOwner, noteHash, metadata);
+        }
+    }
+&nbsp;
+    /**
+    * @dev Emit events for all output notes, which represent notes being created and added
+    * to the note registry
+    * 
+    * @param outputNotes - outputNotes being created and added to note registry state
+    */
+    function logOutputNotes(bytes memory outputNotes) internal {
+        for (uint i = 0; i &lt; outputNotes.getLength(); i += 1) {
+            (address noteOwner, bytes32 noteHash, bytes memory metadata) = outputNotes.get(i).extractNote();
+            emit CreateNote(noteOwner, noteHash, metadata);
+        }
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 15:50:39 GMT-0400 (GMT-04:00)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
