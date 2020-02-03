@@ -62,8 +62,8 @@ Also add any other important context for the audit -->
 
 |      | **Minor**    | **Medium**    | **Major**    | **Critical**   |
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
- | **Open**  | **2**  | **2**  | **1**  | **2** 
- | **Closed**  | **0**  | **0**  | **0**  | **0** 
+ | **Open**  | **0**  | **0**  | **0**  | **0** 
+ | **Closed**  | **2**  | **2**  | **1**  | **2** 
 
 ---
 
@@ -182,13 +182,13 @@ The following table contains all the issues discovered during the audit. The iss
 
 | Chapter | Issue Title | Issue Status | Severity |
 |:------------:| ----------------------- |:------------:|:-----------:|
-| 3.1 | [Bilateral swaps cannot be trustless without additional contract](#31-bilateral-swaps-cannot-be-trustless-without-additional-contract) | Open | Critical |
-| 3.2 | [Owner of the protocol can drain all funds](#32-owner-of-the-protocol-can-drain-all-funds) | Open | Critical |
-| 3.3 | [Tokens are not minted in `confidentialTransferFrom`](#33-tokens-are-not-minted-in-confidentialtransferfrom) | Open | Major |
-| 3.4 | [ZkAssetOwnable should use OpenZeppelin&#x27;s Ownable.sol](#34-zkassetownable-should-use-openzeppelins-ownablesol) | Open | Medium |
-| 3.5 | [System can be irrevocably blocked by the owner](#35-system-can-be-irrevocably-blocked-by-the-owner) | Open | Medium |
-| 3.6 | [The ValidatorAddress in the proof data is unchecked during deposit](#36-the-validatoraddress-in-the-proof-data-is-unchecked-during-deposit) | Open | Minor |
-| 3.7 | [Multiple Integer Overflows in joinSplit.sol](#37-multiple-integer-overflows-in-joinsplitsol) | Open | Minor |
+| 3.1 | [Bilateral swaps cannot be trustless without additional contract](#31-bilateral-swaps-cannot-be-trustless-without-additional-contract) | Closed | Critical |
+| 3.2 | [Owner of the protocol can drain all funds](#32-owner-of-the-protocol-can-drain-all-funds) | Closed | Critical |
+| 3.3 | [Tokens are not minted in `confidentialTransferFrom`](#33-tokens-are-not-minted-in-confidentialtransferfrom) | Closed | Major |
+| 3.4 | [ZkAssetOwnable should use OpenZeppelin&#x27;s Ownable.sol](#34-zkassetownable-should-use-openzeppelins-ownablesol) | Closed | Medium |
+| 3.5 | [System can be irrevocably blocked by the owner](#35-system-can-be-irrevocably-blocked-by-the-owner) | Closed | Medium |
+| 3.6 | [The ValidatorAddress in the proof data is unchecked during deposit](#36-the-validatoraddress-in-the-proof-data-is-unchecked-during-deposit) | Closed | Minor |
+| 3.7 | [Multiple Integer Overflows in joinSplit.sol](#37-multiple-integer-overflows-in-joinsplitsol) | Closed | Minor |
 
 ## 3 Issue Details
 
@@ -197,7 +197,7 @@ The following table contains all the issues discovered during the audit. The iss
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Critical | Open | This issue is currently under review. |
+| Critical | Closed | Discussed with AZTEC, basically it&#x27;s up to the third party to assure users that their interacting contracts are legit, and it&#x27;s up to their customers to to confirm legitimacy as well. |
 
 #### Description
 
@@ -213,7 +213,7 @@ Create additional settlement contract that allows making bilateral swaps in an a
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Critical | Open | This issue is currently under review. |
+| Critical | Closed | This issue was resolved by implementing a multisig timelock very similar to what 0x uses. It introduces a layer of ultra-transparent governance which should mitigate most potential problems with ownership takeover. |
 
 #### Description
 
@@ -241,7 +241,7 @@ One of the possible solutions could look like that:
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Major | Open | This issue is currently under review. |
+| Major | Closed | Fixed as recommended: [AssetMintableBase.sol#L138](https://github.com/AztecProtocol/AZTEC/blob/develop/packages/protocol/contracts/ERC1724/base/ZkAssetMintableBase.sol#L138) |
 
 #### Description
 `ZkAssetMintable` contract is responsible for supplying tokens to the `ACE` contract. If some tokens were confidentially minted, they are publicly minted only when there is a need for it (i.e., if there are not enough funds to withdraw). It's done automatically in `confidentialTransfer` function. It should be also done automatically in `confidentialTransferFrom`.
@@ -256,7 +256,7 @@ Add minting to `confidentialTransferFrom` function if there are not enough funds
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Medium | Open | This issue is currently under review. |
+| Medium | Closed | The remediation as described was implemented: [ZkAssetOwnableBase.sol](https://github.com/AztecProtocol/AZTEC/blob/develop/packages/protocol/contracts/ERC1724/base/ZkAssetOwnableBase.sol) |
 
 #### Description
 ZkAssetOwnable uses its own simplified ownership model, where an owner is assigned on creation, and can never be changed. It should use the more popular Ownable.sol from OpenZeppelin (as is used by ACE), which would be more in line with a users expectations of contract ownership.
@@ -278,7 +278,7 @@ The main driver for this is granting ZkAsset owners the ability to lock their va
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Medium | Open | This issue is currently under review. |
+| Medium | Closed | JOIN_SPLIT_PROOF *is* upgradable now, which is worrisome in some ways, but it&#x27;s also behind the timelock multisig contract, this pert of the attack surface is also easier to protect. |
 
 #### Description
 
@@ -294,7 +294,7 @@ There are multiple possible options, how to deal with this issue:
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Minor | Open | This issue is currently under review. |
+| Minor | Closed | Closed without fixes. &quot;Malleability&quot; issues were discussed (generally considered a flaw in zk-proofs), but it was decided that this particular malleability does not give the attacker any extra capabilities. |
 
 #### Description
 
@@ -337,7 +337,7 @@ Verify that the ValidatorAddress is legitimate.
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Minor | Open | This issue is currently under review. |
+| Minor | Closed | Closed without fixes. In theory all inputs passed in are valid zk proofs anyway, so the prover should stop any malicious use of joinSplit operations. |
 
 #### Description
 While fuzzing joinSplit.sol in Harvey, multiple integer overflows were detected. The impact of these overflows is likely minimal, since validators get called with staticcall, and don't have the ability to affect state. 
