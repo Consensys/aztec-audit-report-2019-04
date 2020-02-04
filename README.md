@@ -38,12 +38,9 @@
 
 ## 1 Summary
 
-The AZTEC Protocol is an exciting new project that promises, for the first time, to bring privacy(confidential transactions) into the Ethereum ecosystem. This is done by managing sets of Zero Knowledge Notes which can represent value bound to standard ERC20 tokens. The existence and ownership of these notes are known, but their values are hidden using a novel Zero Knowledge proof construction.
+The AZTEC Protocol is an exciting new project that promises, for the first time, to bring privacy (confidential transactions) into the Ethereum ecosystem. This is done by managing sets of Zero Knowledge Notes which can represent value bound to standard ERC20 tokens. The existence and ownership of these notes are known, but their values are hidden using a novel Zero Knowledge proof construction.
 
 For the purposes of this audit, we are primarily focused on analyzing the smart contract system deployed by the AZTEC protocol. Verifying the security promises made by the Zero Knowledge constructions in the AZTEC Protocol is beyond our particular expertise, and will be focused on by another group at a later date.
-
-<!-- Provide a headline description of what you have audited and what the goal or purpose of the audited project is.
-Also add any other important context for the audit -->
 
 ### 1.1 Audit Dashboard
 
@@ -64,6 +61,8 @@ Also add any other important context for the audit -->
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
  | **Open**  | **0**  | **0**  | **0**  | **0** 
  | **Closed**  | **2**  | **2**  | **1**  | **2** 
+
+**Update:** This audit was done in April 2019 on commit [7a020f4](https://github.com/AztecProtocol/AZTEC/commit/7a020f4ced9680f6e4a452fe570671aac0802471). At the time of the audit the Aztec project was under active development and since then the code base has changed significantly. The remediation phase was delayed due to the ongoing changes and discussions regarding the relevance and importance of the reported issues. 
 
 ---
 
@@ -123,25 +122,9 @@ It should be noted that the zero-knowledge proof algorithms, trusted setup, and 
 
 ### 1.4 Key Observations/Recommendations
 
-<!-- Positive Observations: Examples
-*  The design of the system is well documented
-*  The code contains many helpful comments
-*  The library architecture is efficient, and innovative
--->
 
 The AZTEC Protocol code is incredibly well written. The tests are extensive, and there is a definite focus on security. Lots of the code is written in assembly, but for the most part, it is due to heavy math operations rather than minor gas improvements. The code also utilizes emerging standards, such as [EIP712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md) for encoding and signing data, and the AZTEC Protocol itself is in the process of becoming a standard, with [EIP1723](https://github.com/ethereum/EIPs/issues/1723) for the Cryptography Engine, and [EIP1724](https://github.com/ethereum/EIPs/issues/1724) as a Confidential Token standard.
 
-<!-- Recommendations: Examples
-
-* **Test coverage is incomplete:** Any contract system that is used on the main net should have as a minimum requirement a 100% test coverage.
-* **Include negative test cases:** The majority of the tests are positive test cases, meaning that the tests confirm that the system works with an expected sequence of actions and inputs. The test suite should be expanded to include more negative scenarios to ensure that the safety checks within the contract system are working correctly.
-* **High Complexity:** The multiple library/contract system is complex in nature. Additional complexity is added by having ...
-* **Stages/Time periods:**  The stages and various timings should be defined more clearly in separated control functions. Any state changing function that is called should check first against those control functions and check if it is allowed to be executed.
-* **Fix all issues:** It is recommended to fix all the issues listed in the below chapters, at the very least the ones with severity Critical, Major and Medium. All issues have also been created as issues on [GitHub](LINK).
-* **Function visibility:** Best practices such as explicitly specifying function visibility should be followed.
-* **Improve Documentation:** Inconsistencies exist between the white paper/documentation and implementation.
-*
--->
 
 #### Minimize the impact of owner key loss
 
@@ -197,16 +180,20 @@ The following table contains all the issues discovered during the audit. The iss
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Critical | Closed | Discussed with AZTEC, basically it&#x27;s up to the third party to assure users that their interacting contracts are legit, and it&#x27;s up to their customers to to confirm legitimacy as well. |
+| Critical | Closed | Closed without fixes. Basically it's up to the third party to assure users that their interacting contracts are legit, and it&#x27;s up to their customers to to confirm legitimacy as well |
 
 #### Description
 
 There should be a way to make atomic trustless bilateral swap transactions using a current set of contracts.
 Unfortunately, there is no way how to do this. One of the counterparties can always front-run the other one and spend both notes (his own note and counterparty's note) in one transaction. So there is no way to make this swap without trusting the counterparty. But if trader trusts the counterparty, no bilateral swap is needed, join-split proof can be used to make the trade.
 
+
 #### Remediation
 
 Create additional settlement contract that allows making bilateral swaps in an atomic and trustless way. This contract is mentioned in specifications, but it's not present in the codebase.
+
+Note from AZTEC:
+> (we disagree that creating a settlement contract is a required part of the protocol for us to provide, and that this is an issue. The swap proof is useful on its own, and needs to be accessible even without going through a settlement contract, and any loss of funds would be the result of a trust abuse by a scammer which a settlement contract would not solve)
 
 
 ### 3.2 Owner of the protocol can drain all funds
@@ -256,10 +243,12 @@ Add minting to `confidentialTransferFrom` function if there are not enough funds
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Medium | Closed | The remediation as described was implemented: [ZkAssetOwnableBase.sol](https://github.com/AztecProtocol/AZTEC/blob/develop/packages/protocol/contracts/ERC1724/base/ZkAssetOwnableBase.sol) |
+| Medium | Closed | The remediation as described was implemented in [ZkAssetOwnableBase.sol](https://github.com/AztecProtocol/AZTEC/blob/develop/packages/protocol/contracts/ERC1724/base/ZkAssetOwnableBase.sol). |
 
 #### Description
-ZkAssetOwnable uses its own simplified ownership model, where an owner is assigned on creation, and can never be changed. It should use the more popular Ownable.sol from OpenZeppelin (as is used by ACE), which would be more in line with a users expectations of contract ownership.
+`ZkAssetOwnable` uses its own simplified ownership model, where an owner is assigned on creation, and can never be changed. 
+
+It is suggested to use the more popular `Ownable.sol` from OpenZeppelin (as is used by ACE), which would be more in line with a users expectations of contract ownership.
 
 #### Examples
 Owner is set manually rather than through the standard Ownable contract:
@@ -337,15 +326,19 @@ Verify that the ValidatorAddress is legitimate.
 
 |   Severity   |  Status   | Remediation Comment |
 | :----------: | :-------: | --------------- |
-| Minor | Closed | Closed without fixes. In theory all inputs passed in are valid zk proofs anyway, so the prover should stop any malicious use of joinSplit operations. |
+| Minor | Closed | In theory all inputs passed in are valid zk proofs anyway, so the prover should stop any malicious use of joinSplit operations. |
 
 #### Description
-While fuzzing joinSplit.sol in Harvey, multiple integer overflows were detected. The impact of these overflows is likely minimal, since validators get called with staticcall, and don't have the ability to affect state. 
+While fuzzing `joinSplit.sol` using Harvey, multiple integer overflows were detected. The impact of these overflows is likely minimal, since validators get called with staticcall, and don't have the ability to affect state. 
 
 #### Examples
 One such example of an overflow is with the input of:
-`0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012893657d8eb2efad4de0a91bcd0e39ad9837745dec3ea923737ea803fc8e3d0000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000`
-The string of 0xfff... you see in there is at 0x184, which will instantly cause the `notes` variable to overflow. 
+
+```text
+0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012893657d8eb2efad4de0a91bcd0e39ad9837745dec3ea923737ea803fc8e3d0000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+```
+
+The string `0xfff...` is at 0x184, which will instantly cause the `notes` variable to overflow. 
 **code/packages/protocol/contracts/ACE/validators/joinSplit/JoinSplit.sol:L67-L70**
 ```solidity
 function validateJoinSplit() {
@@ -354,12 +347,6 @@ function validateJoinSplit() {
     let notes := add(0x104, calldataload(0x184))
 ```
 
-<!--
-Code URLs get formatted nicely, i.e. **code/contracts/Vulnerable.sol:L27-L33**
-```solidity
-
-```
--->
 
 #### Remediation
 Typically the solution to these issues is proper bounds checking. The overhead that this would require might not be worth the seemingly low risk. These overflows should be inspected further to ensure there aren't any unintended consequences. In some cases this will require a strong understanding of the cryptographic significance of the affected variables.
@@ -467,17 +454,6 @@ The code coverage of the tests covers 94.42% of the Statements, 95.08% of the Fu
 
 The state of test coverage at the time of our review can be viewed by opening the `index.html` file from the [coverage report](./coverage-reports) directory in a browser.
 
-<!--
-
-Testing is implemented using the YYY. XXX tests are included in the test suite and they all pass.
-
-The [Solidity-Coverage](https://github.com/sc-forks/solidity-coverage) tool was used to measure the portion of the code base exercised by the test suite, and identify areas with little or no coverage. Specific sections of the code where necessary test coverage is missing are included in the Issue Details section.
-
-It's important to note that "100% test coverage" is not a silver bullet. Our review also included a inspection of the test suite, to ensure that testing included important edge cases.
-
-The state of test coverage at the time of our review can be viewed by opening the `index.html` file from the [coverage report](coverage-reports) directory in a browser.
-
--->
 
 ## Appendix 1  - File Hashes
 
